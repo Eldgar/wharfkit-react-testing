@@ -7,18 +7,10 @@ import { WalletPluginCloudWallet } from '@wharfkit/wallet-plugin-cloudwallet';
 
 function App() {
   const [session, setSession] = useState(null);
-  const [ui, setUi] = useState(null);
+  //const [sessionKit, setSessionKit] = useState(null);
   const anchor = new WalletPluginAnchor();
 
- 
-
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setUi(new WebUIRenderer({ id: "login" }));
-      }
-    }, []);
-
+    const ui = new WebUIRenderer()
 
     const sessionKit = new SessionKit({
       appName: 'demo',
@@ -61,7 +53,11 @@ function App() {
           new WalletPluginAnchor(),
           new WalletPluginCloudWallet(),
       ],
-  })
+    })
+
+    useEffect(() => {
+        ui.appendDialogElement()
+      }, []);
 
     async function login() {
       console.log("sessionKit ", sessionKit)
